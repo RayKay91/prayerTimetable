@@ -72,7 +72,7 @@ const tomMTimetable = correctedDay?.maghrib;
 const tomMJamTimetable = correctedDay?.maghribJamaa;
 const tomITimetable = correctedDay?.isha;
 const tomIJamTimetable = correctedDay?.ishaJamaa;
-
+console.log(fTimetable, timetable, month, day);
 //string with colon taken out for time comparison '1354'
 const fTime = spliceSlice(fTimetable, 2, 1);
 const sTime = spliceSlice(sTimetable, 2, 1);
