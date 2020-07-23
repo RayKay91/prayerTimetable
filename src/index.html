@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./assets/main.css" />
+    <title>WISE Prayer Times</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+  </head>
+  <body>
+    <h1>WISE Prayer Times</h1>
+    <h3>Date</h3>
+    <h3 id="clock">Time</h3>
+    <div>
+      <table id="today">
+        <tr class="headings">
+          <th></th>
+          <th>Start Time</th>
+          <th>Jama'ah Time</th>
+        </tr>
+        <tr>
+          <td class="prayer-name">Fajr</td>
+          <td class="fajr">00:00</td>
+          <td class="F-Jam">00:00</td>
+        </tr>
+        <tr>
+          <td class="prayer-name">Sunrise</td>
+          <td class="sunrise">00:00</td>
+          <td>--</td>
+        </tr>
+        <tr>
+          <td class="prayer-name">Dhuhr</td>
+          <td class="dhuhr">00:00</td>
+          <td class="D-Jam">00:00</td>
+        </tr>
+        <tr>
+          <td class="prayer-name">Asr</td>
+          <td class="asr">00:00</td>
+          <td class="A-Jam">00:00</td>
+        </tr>
+        <tr>
+          <td class="prayer-name">Maghrib</td>
+          <td class="maghrib">00:00</td>
+          <td class="M-Jam">--</td>
+        </tr>
+        <tr>
+          <td class="prayer-name">Isha</td>
+          <td class="isha">00:00</td>
+          <td class="I-Jam">00:00</td>
+        </tr>
+      </table>
+
+      <button id="tomorrows-times" class="tomorrow"
+        >Hold to view tomorrow's times</button
+      >
+      <div class="notifications">
+        <button class="n tomorrow nEnabled pressed"
+          >Notificatons Enabled</button
+        >
+        <button class="n tomorrow nSilenced">Notifications Silenced</button>
+        <button class="n tomorrow nOff">Notifications Disabled</button>
+      </div>
+      <div id="tomoz">
+        <table>
+          <tr class="headings">
+            <th></th>
+            <th>Start Time</th>
+            <th>Jama'ah Time</th>
+          </tr>
+          <tr>
+            <td class="tprayer-name">Fajr</td>
+            <td class="tfajr">00:00</td>
+            <td class="tF-Jam">00:00</td>
+          </tr>
+          <tr>
+            <td class="tprayer-name">Sunrise</td>
+            <td class="tsunrise">00:00</td>
+            <td>--</td>
+          </tr>
+          <tr>
+            <td class="tprayer-name">Dhuhr</td>
+            <td class="tdhuhr">00:00</td>
+            <td class="tD-Jam">00:00</td>
+          </tr>
+          <tr>
+            <td class="tprayer-name">Asr</td>
+            <td class="tasr">00:00</td>
+            <td class="tA-Jam">00:00</td>
+          </tr>
+          <tr>
+            <td class="tprayer-name">Maghrib</td>
+            <td class="tmaghrib">00:00</td>
+            <td class="tM-Jam">--</td>
+          </tr>
+          <tr>
+            <td class="tprayer-name">Isha</td>
+            <td class="tisha">00:00</td>
+            <td class="tI-Jam">00:00</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
