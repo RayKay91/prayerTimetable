@@ -7,7 +7,7 @@ function createWindow() {
     height: 730,
     webPreferences: {
       nodeIntegration: true,
-      devTools: true,
+      devTools: false,
     },
     icon: `${__dirname}/src/assets/icons/Icon_256x256.png`,
     resizable: false,
