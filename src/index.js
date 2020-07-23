@@ -7,8 +7,6 @@ const day = date.getDate();
 //DOM Elements
 const dateH3 = document.querySelector('h3');
 const clock = document.querySelector('#clock');
-const prayerTimes = document.querySelectorAll('td:last-of-type');
-const prayerName = document.querySelectorAll('.prayer-name');
 const rowFajr = document.querySelector('tr:nth-of-type(2)');
 const rowSunrise = document.querySelector('tr:nth-of-type(3)');
 const rowDhuhr = document.querySelector('tr:nth-of-type(4)');
@@ -72,7 +70,6 @@ const tomMTimetable = correctedDay?.maghrib;
 const tomMJamTimetable = correctedDay?.maghribJamaa;
 const tomITimetable = correctedDay?.isha;
 const tomIJamTimetable = correctedDay?.ishaJamaa;
-console.log(fTimetable, timetable, month, day);
 //string with colon taken out for time comparison '1354'
 const fTime = spliceSlice(fTimetable, 2, 1);
 const sTime = spliceSlice(sTimetable, 2, 1);
