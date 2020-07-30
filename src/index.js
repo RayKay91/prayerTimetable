@@ -133,21 +133,21 @@ function timeDifference() {
   const accurateCT = h + ':' + m + ':' + sec;
 
   if (cT >= f && cT < s) {
-    accurateCT === nCheckF ? notify('Fajr') : '';
+    if (accurateCT === nCheckF) notify('Fajr');
     rowFajr.classList.add('active');
   } else if (cT >= s && cT < d) {
     changeActiveClass(rowFajr, rowSunrise);
   } else if (cT >= d && cT < a) {
-    accurateCT === nCheckD ? notify('Dhuhr') : '';
+    if (accurateCT === nCheckD) notify('Dhuhr');
     changeActiveClass(rowSunrise, rowDhuhr);
   } else if (cT >= a && cT < mg) {
-    accurateCT === nCheckA ? notify('Asr') : '';
+    if (accurateCT === nCheckA) notify('Asr');
     changeActiveClass(rowDhuhr, rowAsr);
   } else if (cT >= mg && cT < i) {
-    accurateCT === nCheckM ? notify('Maghrib') : '';
+    if (accurateCT === nCheckM) notify('Maghrib');
     changeActiveClass(rowAsr, rowMaghrib);
   } else if (cT >= i && cT <= 2359) {
-    accurateCT === nCheckI ? notify('Isha') : '';
+    if (accurateCT === nCheckI) notify('Isha');
     changeActiveClass(rowMaghrib, rowIsha);
   } else if (!cT) {
     rowIsha.classList.remove('active');
