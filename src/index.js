@@ -7,37 +7,45 @@ const day = date.getDate();
 //DOM Elements
 const dateH3 = document.querySelector('h3');
 const clock = document.querySelector('#clock');
+//selecting rows for class and appearance change
 const rowFajr = document.querySelector('tr:nth-of-type(2)');
 const rowSunrise = document.querySelector('tr:nth-of-type(3)');
 const rowDhuhr = document.querySelector('tr:nth-of-type(4)');
 const rowAsr = document.querySelector('tr:nth-of-type(5)');
 const rowMaghrib = document.querySelector('tr:nth-of-type(6)');
 const rowIsha = document.querySelector('tr:nth-of-type(7)');
+//selecting times from first column of timetable
 const fajr = document.querySelector('.fajr');
 const sunrise = document.querySelector('.sunrise');
 const dhuhr = document.querySelector('.dhuhr');
 const asr = document.querySelector('.asr');
 const maghrib = document.querySelector('.maghrib');
 const isha = document.querySelector('.isha');
+//selecting times from second column of timetable
 const fJam = document.querySelector('.F-Jam');
 const dJam = document.querySelector('.D-Jam');
 const aJam = document.querySelector('.A-Jam');
 const mJam = document.querySelector('.M-Jam');
 const iJam = document.querySelector('.I-Jam');
+//selecting button
 const btn = document.querySelector('#tomorrows-times');
+//selecting times from 1st column of 'tomorrow' table
 const tfajr = document.querySelector('.tfajr');
 const tsunrise = document.querySelector('.tsunrise');
 const tdhuhr = document.querySelector('.tdhuhr');
 const tasr = document.querySelector('.tasr');
 const tmaghrib = document.querySelector('.tmaghrib');
 const tisha = document.querySelector('.tisha');
+////selecting times from 2nd column of 'tomorrow' table
 const tfJam = document.querySelector('.tF-Jam');
 const tdJam = document.querySelector('.tD-Jam');
 const taJam = document.querySelector('.tA-Jam');
 const tmJam = document.querySelector('.tM-Jam');
 const tiJam = document.querySelector('.tI-Jam');
+//
 const tomoz = document.getElementById('tomoz');
 const today = document.getElementById('today');
+//buttons under table
 const nEnabled = document.querySelector('.nEnabled');
 const nSilenced = document.querySelector('.nSilenced');
 const nOff = document.querySelector('.nOff');
@@ -71,12 +79,12 @@ const tomMJamTimetable = correctedDay?.maghribJamaa;
 const tomITimetable = correctedDay?.isha;
 const tomIJamTimetable = correctedDay?.ishaJamaa;
 //string with colon taken out for time comparison '1354'
-const fTime = spliceSlice(fTimetable, 2, 1);
-const sTime = spliceSlice(sTimetable, 2, 1);
-const dTime = spliceSlice(dTimetable, 2, 1);
-const aTime = spliceSlice(aTimetable, 2, 1);
-const mTime = spliceSlice(mTimetable, 2, 1);
-const iTime = spliceSlice(iTimetable, 2, 1);
+const fTime = fTimetable.replace(':', '');
+const sTime = sTimetable.replace(':', '');
+const dTime = dTimetable.replace(':', '');
+const aTime = aTimetable.replace(':', '');
+const mTime = mTimetable.replace(':', '');
+const iTime = iTimetable.replace(':', '');
 //Colon removed string converted to number
 const f = parseInt(fTime);
 const s = parseInt(sTime);
@@ -84,7 +92,6 @@ const d = parseInt(dTime);
 const a = parseInt(aTime);
 const mg = parseInt(mTime);
 const i = parseInt(iTime);
-let notification;
 //Event listeners
 btn.addEventListener('mousedown', tomorrowTimes);
 btn.addEventListener('mouseup', todayTimes);
@@ -179,10 +186,6 @@ function run() {
   var t = setTimeout(function () {
     run();
   }, 1000); /* setting timer*/
-}
-
-function spliceSlice(str, index, count) {
-  return str.slice(0, index) + str.slice(index + count);
 }
 
 function tomorrowTimes() {
