@@ -183,7 +183,7 @@ function checkZero(num) {
 function run() {
   currentTime();
   timeDifference();
-  var t = setTimeout(function () {
+  setTimeout(function () {
     run();
   }, 1000); /* setting timer*/
 }
