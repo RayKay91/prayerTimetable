@@ -28,93 +28,178 @@ const aJam = document.querySelector('.A-Jam');
 const mJam = document.querySelector('.M-Jam');
 const iJam = document.querySelector('.I-Jam');
 //selecting button
-const btn = document.querySelector('#tomorrows-times');
-//selecting times from 1st column of 'tomorrow' table
-const tfajr = document.querySelector('.tfajr');
-const tsunrise = document.querySelector('.tsunrise');
-const tdhuhr = document.querySelector('.tdhuhr');
-const tasr = document.querySelector('.tasr');
-const tmaghrib = document.querySelector('.tmaghrib');
-const tisha = document.querySelector('.tisha');
-////selecting times from 2nd column of 'tomorrow' table
-const tfJam = document.querySelector('.tF-Jam');
-const tdJam = document.querySelector('.tD-Jam');
-const taJam = document.querySelector('.tA-Jam');
-const tmJam = document.querySelector('.tM-Jam');
-const tiJam = document.querySelector('.tI-Jam');
-//
-const tomoz = document.getElementById('tomoz');
-const today = document.getElementById('today');
+// const btn = document.querySelector('#tomorrows-times');
+// //selecting times from 1st column of 'tomorrow' table
+// const tfajr = document.querySelector('.tfajr');
+// const tsunrise = document.querySelector('.tsunrise');
+// const tdhuhr = document.querySelector('.tdhuhr');
+// const tasr = document.querySelector('.tasr');
+// const tmaghrib = document.querySelector('.tmaghrib');
+// const tisha = document.querySelector('.tisha');
+// ////selecting times from 2nd column of 'tomorrow' table
+// const tfJam = document.querySelector('.tF-Jam');
+// const tdJam = document.querySelector('.tD-Jam');
+// const taJam = document.querySelector('.tA-Jam');
+// const tmJam = document.querySelector('.tM-Jam');
+// const tiJam = document.querySelector('.tI-Jam');
+// //
+// const tomoz = document.getElementById('tomoz');
+// const today = document.getElementById('today');
 //buttons under table
 const nEnabled = document.querySelector('.nEnabled');
 const nSilenced = document.querySelector('.nSilenced');
 const nOff = document.querySelector('.nOff');
-//time from timetable object '13:54'
-const getDay = timetable[month][day];
-const fTimetable = getDay.fajr;
-const fJamTimetable = getDay.fajrJamaa;
-const sTimetable = getDay.sunrise;
-const dTimetable = getDay.dhuhr;
-const dJamTimetable = getDay.dhuhrJamaa;
-const aTimetable = getDay.asr;
-const aJamTimetable = getDay.asrJamaa;
-const mTimetable = getDay.maghrib;
-const mJamTimetable = getDay.maghribJamaa;
-const iTimetable = getDay.isha;
-const iJamTimetable = getDay.ishaJamaa;
-//next day times + optional chaining check for last day of month + 1
 
-const correctedDay = timetable[month]?.[day + 1]; //Looks for 31st of month
-const rectifiedDay = timetable[month + 1][1]; // Looks for next month;
-const endOfYearRectifier = timetable[0][1]; //for day after last day of year (no 13th month)
-const tomFTimetable = correctedDay?.fajr;
-const tomFJamTimetable = correctedDay?.fajrJamaa;
-const tomSTimetable = correctedDay?.sunrise;
-const tomDTimetable = correctedDay?.dhuhr;
-const tomDJamTimetable = correctedDay?.dhuhrJamaa;
-const tomATimetable = correctedDay?.asr;
-const tomAJamTimetable = correctedDay?.asrJamaa;
-const tomMTimetable = correctedDay?.maghrib;
-const tomMJamTimetable = correctedDay?.maghribJamaa;
-const tomITimetable = correctedDay?.isha;
-const tomIJamTimetable = correctedDay?.ishaJamaa;
-//string with colon taken out for time comparison '1354'
-const fTime = fTimetable.replace(':', '');
-const sTime = sTimetable.replace(':', '');
-const dTime = dTimetable.replace(':', '');
-const aTime = aTimetable.replace(':', '');
-const mTime = mTimetable.replace(':', '');
-const iTime = iTimetable.replace(':', '');
-//Colon removed string converted to number
-const f = parseInt(fTime);
-const s = parseInt(sTime);
-const d = parseInt(dTime);
-const a = parseInt(aTime);
-const mg = parseInt(mTime);
-const i = parseInt(iTime);
+const axios = require('axios');
+const cheerio = require('cheerio');
+
+const fetchData = async () => {
+  const result = await axios.get('https://wise-web.org');
+  return cheerio.load(result.data);
+};
+
+async function getTimes() {
+  const $ = await fetchData();
+  const fajr = $('#panel-w5f3cfd55e7b69-0-0-1 > div > p:nth-child(1)').text();
+  const fajrJamaa = $(
+    '#panel-w5f3cfd55e7b69-0-0-1 > div > p:nth-child(2)'
+  ).text();
+  const sunrise = $(
+    '#panel-w5f3cfd55eaad0-0-0-1 > div > p:nth-child(1)'
+  ).text();
+  const dhuhr = $('#panel-w5f3cfd55eacb0-0-0-1 > div > p:nth-child(1)').text();
+  const dhuhrJamaa = $(
+    '#panel-w5f3cfd55eacb0-0-0-1 > div > p:nth-child(2)'
+  ).text();
+  const asr = $('#panel-w5f3cfd55eae21-0-0-1 > div > p:nth-child(1)').text();
+  const asrJamaa = $(
+    '#panel-w5f3cfd55eae21-0-0-1 > div > p:nth-child(2)'
+  ).text();
+  const maghrib = $(
+    '#panel-w5f3cfd55eaf9d-0-0-1 > div > p:nth-child(1)'
+  ).text();
+  const maghribJamaa = $(
+    '#panel-w5f3cfd55eaf9d-0-0-1 > div > p:nth-child(2)'
+  ).text();
+  const isha = $('#panel-w5f3cfd55eb112-0-0-1 > div > p:nth-child(1)').text();
+  const ishaJamaa = $(
+    '#panel-w5f3cfd55eb112-0-0-1 > div > p:nth-child(2)'
+  ).text();
+
+  const startTimes = [fajr, sunrise, dhuhr, asr, maghrib, isha];
+  const dirtyCongregationTimes = [
+    fajrJamaa,
+    dhuhrJamaa,
+    asrJamaa,
+    maghribJamaa,
+    ishaJamaa,
+  ];
+  //remove "Jama'ah" from scraped text
+  const congregationTimes = dirtyCongregationTimes.map((time) =>
+    time.substring(7)
+  );
+
+  return [startTimes, congregationTimes];
+}
+
+getTimes().then((times) => {
+  const fajr = times[0][0];
+  const sunrise = times[0][1];
+  const dhuhr = times[0][2];
+  const asr = times[0][3];
+  const maghrib = times[0][4];
+  const isha = times[0][5];
+  const fajrJamaa = times[1][0];
+  const dhuhrJamaa = times[1][1];
+  const asrJamaa = times[1][2];
+  const maghribJamaa = times[1][3];
+  const ishaJamaa = times[1][4];
+
+  setPrayerTimes(
+    fajr,
+    sunrise,
+    dhuhr,
+    asr,
+    maghrib,
+    isha,
+    fajrJamaa,
+    dhuhrJamaa,
+    asrJamaa,
+    maghribJamaa,
+    ishaJamaa
+  );
+
+  const fTime = fajr;
+  const sTime = sunrise;
+  const dTime = convertTo24Hr(dhuhr);
+  const aTime = convertTo24Hr(asr);
+  const mTime = convertTo24Hr(maghrib);
+  const iTime = convertTo24Hr(isha);
+
+  timeDifference(fTime, sTime, dTime, aTime, mTime, iTime);
+  function run() {
+    currentTime();
+    const shouldUpdateTimes = currentTime();
+
+    shouldUpdateTimes
+      ? setPrayerTimes(
+          fajr,
+          sunrise,
+          dhuhr,
+          asr,
+          maghrib,
+          isha,
+          fajrJamaa,
+          dhuhrJamaa,
+          asrJamaa,
+          maghribJamaa,
+          ishaJamaa
+        )
+      : '';
+
+    timeDifference(fTime, sTime, dTime, aTime, mTime, iTime);
+    setTimeout(function () {
+      run();
+    }, 1000); /* setting timer*/
+  }
+  run();
+});
+
 //Event listeners
-btn.addEventListener('mousedown', tomorrowTimes);
-btn.addEventListener('mouseup', todayTimes);
+// btn.addEventListener('mousedown', tomorrowTimes);
+// btn.addEventListener('mouseup', todayTimes);
 nEnabled.addEventListener('mousedown', permitNotifications);
 nSilenced.addEventListener('mousedown', silenceNotifications);
 nOff.addEventListener('mousedown', stopNotifications);
 
 //Functions
-const getPrayerTimes = () => {
-  fajr.innerText = fTimetable;
-  fJam.innerText = fJamTimetable;
-  sunrise.innerText = sTimetable;
-  dhuhr.innerText = dTimetable;
-  dJam.innerText = dJamTimetable;
-  asr.innerText = aTimetable;
-  aJam.innerText = aJamTimetable;
-  maghrib.innerText = mTimetable;
-  mJam.innerText = mJamTimetable || mTimetable;
-  isha.innerText = iTimetable;
-  iJam.innerText = iJamTimetable;
+const setPrayerTimes = (
+  Fajr,
+  Sunrise,
+  Dhuhr,
+  Asr,
+  Maghrib,
+  Isha,
+  FajrJamaa,
+  DhuhrJamaa,
+  AsrJamaa,
+  MaghribJamaa,
+  IshaJamaa
+) => {
+  fajr.innerText = convertTo24Hr(Fajr);
+  fJam.innerText = convertTo24Hr(FajrJamaa);
+  sunrise.innerText = convertTo24Hr(Sunrise);
+  dhuhr.innerText = convertTo24Hr(Dhuhr);
+  dJam.innerText = convertTo24Hr(DhuhrJamaa);
+  asr.innerText = convertTo24Hr(Asr);
+  aJam.innerText = convertTo24Hr(AsrJamaa);
+  maghrib.innerText = convertTo24Hr(Maghrib);
+  mJam.innerText = convertTo24Hr(MaghribJamaa);
+  isha.innerText = convertTo24Hr(Isha);
+  iJam.innerText = convertTo24Hr(IshaJamaa);
 };
 //changes styling of table and notifies of prayer time upon active class assignment
-function timeDifference() {
+function timeDifference(fTime, sTime, dTime, aTime, mTime, iTime) {
   let date = new Date();
   let h = date.getHours();
   let m = date.getMinutes();
@@ -122,34 +207,41 @@ function timeDifference() {
   h = checkZero(h);
   m = checkZero(m);
   sec = checkZero(sec);
-  const nCheckF = fTimetable + ':00';
-  const nCheckD = dTimetable + ':00';
-  const nCheckA = aTimetable + ':00';
-  const nCheckM = mTimetable + ':00';
-  const nCheckI = iTimetable + ':00';
+  const nCheckF = fTime + ':00';
+  const nCheckD = dTime + ':00';
+  const nCheckA = aTime + ':00';
+  const nCheckM = mTime + ':00';
+  const nCheckI = iTime + ':00';
 
-  const currentTime = h + '' + m;
-  const cT = parseInt(currentTime);
-  const accurateCT = h + ':' + m + ':' + sec;
+  const currentTime = parseInt(h + '' + m);
 
-  if (cT >= f && cT < s) {
-    if (accurateCT === nCheckF) notify('Fajr');
+  const accurateCurrentTime = h + ':' + m + ':' + sec;
+
+  const fajrTime = +fTime.replace(':', '');
+  const sunrisetime = +sTime.replace(':', '');
+  const dhuhrTime = +dTime.replace(':', '');
+  const asrTime = +aTime.replace(':', '');
+  const maghribTime = +mTime.replace(':', '');
+  const ishaTime = +iTime.replace(':', '');
+
+  if (currentTime >= fajrTime && currentTime < sunrisetime) {
+    if (accurateCurrentTime === nCheckF) notify('Fajr');
     rowFajr.classList.add('active');
-  } else if (cT >= s && cT < d) {
+  } else if (currentTime >= sunrisetime && currentTime < dhuhrTime) {
     changeActiveClass(rowFajr, rowSunrise);
-  } else if (cT >= d && cT < a) {
-    if (accurateCT === nCheckD) notify('Dhuhr');
+  } else if (currentTime >= dhuhrTime && currentTime < asrTime) {
+    if (accurateCurrentTime === nCheckD) notify('Dhuhr');
     changeActiveClass(rowSunrise, rowDhuhr);
-  } else if (cT >= a && cT < mg) {
-    if (accurateCT === nCheckA) notify('Asr');
+  } else if (currentTime >= asrTime && currentTime < maghribTime) {
+    if (accurateCurrentTime === nCheckA) notify('Asr');
     changeActiveClass(rowDhuhr, rowAsr);
-  } else if (cT >= mg && cT < i) {
-    if (accurateCT === nCheckM) notify('Maghrib');
+  } else if (currentTime >= maghribTime && currentTime < ishaTime) {
+    if (accurateCurrentTime === nCheckM) notify('Maghrib');
     changeActiveClass(rowAsr, rowMaghrib);
-  } else if (cT >= i && cT <= 2359) {
-    if (accurateCT === nCheckI) notify('Isha');
+  } else if (currentTime >= ishaTime && currentTime <= 2359) {
+    if (accurateCurrentTime === nCheckI) notify('Isha');
     changeActiveClass(rowMaghrib, rowIsha);
-  } else if (!cT) {
+  } else if (!currentTime) {
     rowIsha.classList.remove('active');
   }
 }
@@ -169,8 +261,9 @@ function currentTime() {
   clock.innerText = hour + ':' + mi + ':' + sec; /* adding time to the div */
   if (hour + ':' + mi + ':' + sec === '00:00:00') {
     setDate();
-    getPrayerTimes();
+    return true;
   }
+  return false;
 }
 //adds zero to minute/hour/sec below 10
 function checkZero(num) {
@@ -180,51 +273,54 @@ function checkZero(num) {
     return num;
   }
 }
-function run() {
-  currentTime();
-  timeDifference();
-  setTimeout(function () {
-    run();
-  }, 1000); /* setting timer*/
-}
 
-function tomorrowTimes() {
-  today.style.left = '110%';
-  tomoz.style.transform = 'translate(-50%,0)';
-  tomoz.style.left = '50%';
+// function tomorrowTimes() {
+//   today.style.left = '110%';
+//   tomoz.style.transform = 'translate(-50%,0)';
+//   tomoz.style.left = '50%';
 
-  tfajr.innerText =
-    tomFTimetable || rectifiedDay?.fajr || endOfYearRectifier.fajr;
-  tfJam.innerText =
-    tomFJamTimetable || rectifiedDay?.fajrJamaa || endOfYearRectifier.fajrJamaa;
-  tsunrise.innerText =
-    tomSTimetable || rectifiedDay?.sunrise || endOfYearRectifier.sunrise;
-  tdhuhr.innerText =
-    tomDTimetable || rectifiedDay?.dhuhr || endOfYearRectifier.dhuhr;
-  tdJam.innerText =
-    tomDJamTimetable ||
-    rectifiedDay?.dhuhrJamaa ||
-    endOfYearRectifier.dhuhrJamaa;
-  tasr.innerText = tomATimetable || rectifiedDay?.asr || endOfYearRectifier.asr;
-  taJam.innerText =
-    tomAJamTimetable || rectifiedDay?.asrJamaa || endOfYearRectifier.asrJamaa;
-  tmaghrib.innerText =
-    tomMTimetable || rectifiedDay?.maghrib || endOfYearRectifier.maghrib;
-  tmJam.innerText =
-    tomMJamTimetable ||
-    rectifiedDay?.maghribJamaa ||
-    endOfYearRectifier?.maghribJamaa ||
-    tomMTimetable ||
-    rectifiedDay?.maghrib ||
-    endOfYearRectifier.maghrib;
-  tisha.innerText =
-    tomITimetable || rectifiedDay?.isha || endOfYearRectifier.isha;
-  tiJam.innerText =
-    tomIJamTimetable || rectifiedDay?.ishaJamaa || endOfYearRectifier.ishaJamaa;
-}
-function todayTimes() {
-  tomoz.style.left = '-110%';
-  today.style.left = '0%';
+//   tfajr.innerText =
+//     tomFTimetable || rectifiedDay?.fajr || endOfYearRectifier.fajr;
+//   tfJam.innerText =
+//     tomFJamTimetable || rectifiedDay?.fajrJamaa || endOfYearRectifier.fajrJamaa;
+//   tsunrise.innerText =
+//     tomSTimetable || rectifiedDay?.sunrise || endOfYearRectifier.sunrise;
+//   tdhuhr.innerText =
+//     tomDTimetable || rectifiedDay?.dhuhr || endOfYearRectifier.dhuhr;
+//   tdJam.innerText =
+//     tomDJamTimetable ||
+//     rectifiedDay?.dhuhrJamaa ||
+//     endOfYearRectifier.dhuhrJamaa;
+//   tasr.innerText = tomATimetable || rectifiedDay?.asr || endOfYearRectifier.asr;
+//   taJam.innerText =
+//     tomAJamTimetable || rectifiedDay?.asrJamaa || endOfYearRectifier.asrJamaa;
+//   tmaghrib.innerText =
+//     tomMTimetable || rectifiedDay?.maghrib || endOfYearRectifier.maghrib;
+//   tmJam.innerText =
+//     tomMJamTimetable ||
+//     rectifiedDay?.maghribJamaa ||
+//     endOfYearRectifier?.maghribJamaa ||
+//     tomMTimetable ||
+//     rectifiedDay?.maghrib ||
+//     endOfYearRectifier.maghrib;
+//   tisha.innerText =
+//     tomITimetable || rectifiedDay?.isha || endOfYearRectifier.isha;
+//   tiJam.innerText =
+//     tomIJamTimetable || rectifiedDay?.ishaJamaa || endOfYearRectifier.ishaJamaa;
+// }
+// function todayTimes() {
+//   tomoz.style.left = '-110%';
+//   today.style.left = '0%';
+// }
+
+//converted to number for time comparison
+
+function convertTo24Hr(time) {
+  //check if hour is 12 if so do not add 12
+  if (time[1] === '2') return time;
+  let hours = time.substring(0, 2);
+  hours = parseInt(hours) + 12;
+  return hours + time.substring(2);
 }
 
 function setDate() {
@@ -287,5 +383,3 @@ function notificationPermission() {
 }
 notificationPermission();
 setDate();
-getPrayerTimes();
-run();
