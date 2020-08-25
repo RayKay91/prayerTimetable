@@ -1,4 +1,3 @@
-const timetable = require('./assets/timetable');
 //Selectors
 //initial date capture
 const date = new Date();
@@ -186,9 +185,9 @@ const setPrayerTimes = (
   MaghribJamaa,
   IshaJamaa
 ) => {
-  fajr.innerText = convertTo24Hr(Fajr);
-  fJam.innerText = convertTo24Hr(FajrJamaa);
-  sunrise.innerText = convertTo24Hr(Sunrise);
+  fajr.innerText = Fajr;
+  fJam.innerText = FajrJamaa;
+  sunrise.innerText = Sunrise;
   dhuhr.innerText = convertTo24Hr(Dhuhr);
   dJam.innerText = convertTo24Hr(DhuhrJamaa);
   asr.innerText = convertTo24Hr(Asr);
