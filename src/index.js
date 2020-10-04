@@ -1,8 +1,5 @@
 //Selectors
 //initial date capture
-const date = new Date();
-const month = date.getMonth();
-const day = date.getDate();
 //DOM Elements
 const dateH3 = document.querySelector('h3');
 const clock = document.querySelector('#clock');
@@ -27,23 +24,7 @@ const aJam = document.querySelector('.A-Jam');
 const mJam = document.querySelector('.M-Jam');
 const iJam = document.querySelector('.I-Jam');
 //selecting button
-// const btn = document.querySelector('#tomorrows-times');
-// //selecting times from 1st column of 'tomorrow' table
-// const tfajr = document.querySelector('.tfajr');
-// const tsunrise = document.querySelector('.tsunrise');
-// const tdhuhr = document.querySelector('.tdhuhr');
-// const tasr = document.querySelector('.tasr');
-// const tmaghrib = document.querySelector('.tmaghrib');
-// const tisha = document.querySelector('.tisha');
-// ////selecting times from 2nd column of 'tomorrow' table
-// const tfJam = document.querySelector('.tF-Jam');
-// const tdJam = document.querySelector('.tD-Jam');
-// const taJam = document.querySelector('.tA-Jam');
-// const tmJam = document.querySelector('.tM-Jam');
-// const tiJam = document.querySelector('.tI-Jam');
-// //
-// const tomoz = document.getElementById('tomoz');
-// const today = document.getElementById('today');
+
 //buttons under table
 const nEnabled = document.querySelector('.nEnabled');
 const nSilenced = document.querySelector('.nSilenced');
@@ -267,7 +248,12 @@ function checkZero(num) {
 function convertTo24Hr(time) {
   //check if hour is 12 if so do not add 12
   if (time[1] === '2') return time;
+  if (time[0] !== '0') {
+    time = '0' + time;
+  }
   let hours = time.substring(0, 2);
+  console.log('functionconvertTo24Hr -> hours', time, hours);
+
   hours = parseInt(hours) + 12;
   return hours + time.substring(2);
 }
@@ -276,18 +262,19 @@ function setDate() {
   const date = new Date();
   dateH3.innerText = date.toDateString();
 }
+
 function notify(pName) {
   if (Notification.permission === 'granted') {
     if (
       nEnabled.classList.contains('pressed') &&
       !nSilenced.classList.contains('pressed')
     ) {
-      notification = new Notification(`Time for ${pName} prayer`, {
+      new Notification(`Time for ${pName} prayer`, {
         body: `The time for ${pName} prayer has started.`,
         soundName: 'default',
       });
     } else if (nSilenced.classList.contains('pressed')) {
-      notification = new Notification(`Time for ${pName} prayer`, {
+      new Notification(`Time for ${pName} prayer`, {
         body: `The time for ${pName} prayer has started.`,
         silent: true,
       });
@@ -324,8 +311,8 @@ function silenceNotifications() {
 }
 function notificationPermission() {
   if (
-    Notification.permission != 'granted' &&
-    Notification.permission != 'denied'
+    Notification.permission !== 'granted' &&
+    Notification.permission !== 'denied'
   ) {
     Notification.requestPermission();
   }

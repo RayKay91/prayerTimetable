@@ -7,10 +7,10 @@ function createWindow() {
     height: 730,
     webPreferences: {
       nodeIntegration: true,
-      devTools: false,
+      devTools: true,
     },
     icon: `${__dirname}/src/assets/icons/Icon_256x256.png`,
-    resizable: false,
+    resizable: true,
     acceptFirstMouse: true,
     titleBarStyle: 'hidden',
     movable: true,
