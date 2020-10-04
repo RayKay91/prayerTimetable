@@ -204,45 +204,6 @@ function checkZero(num) {
   }
 }
 
-// function tomorrowTimes() {
-//   today.style.left = '110%';
-//   tomoz.style.transform = 'translate(-50%,0)';
-//   tomoz.style.left = '50%';
-
-//   tfajr.innerText =
-//     tomFTimetable || rectifiedDay?.fajr || endOfYearRectifier.fajr;
-//   tfJam.innerText =
-//     tomFJamTimetable || rectifiedDay?.fajrJamaa || endOfYearRectifier.fajrJamaa;
-//   tsunrise.innerText =
-//     tomSTimetable || rectifiedDay?.sunrise || endOfYearRectifier.sunrise;
-//   tdhuhr.innerText =
-//     tomDTimetable || rectifiedDay?.dhuhr || endOfYearRectifier.dhuhr;
-//   tdJam.innerText =
-//     tomDJamTimetable ||
-//     rectifiedDay?.dhuhrJamaa ||
-//     endOfYearRectifier.dhuhrJamaa;
-//   tasr.innerText = tomATimetable || rectifiedDay?.asr || endOfYearRectifier.asr;
-//   taJam.innerText =
-//     tomAJamTimetable || rectifiedDay?.asrJamaa || endOfYearRectifier.asrJamaa;
-//   tmaghrib.innerText =
-//     tomMTimetable || rectifiedDay?.maghrib || endOfYearRectifier.maghrib;
-//   tmJam.innerText =
-//     tomMJamTimetable ||
-//     rectifiedDay?.maghribJamaa ||
-//     endOfYearRectifier?.maghribJamaa ||
-//     tomMTimetable ||
-//     rectifiedDay?.maghrib ||
-//     endOfYearRectifier.maghrib;
-//   tisha.innerText =
-//     tomITimetable || rectifiedDay?.isha || endOfYearRectifier.isha;
-//   tiJam.innerText =
-//     tomIJamTimetable || rectifiedDay?.ishaJamaa || endOfYearRectifier.ishaJamaa;
-// }
-// function todayTimes() {
-//   tomoz.style.left = '-110%';
-//   today.style.left = '0%';
-// }
-
 //converted to number for time comparison
 
 function convertTo24Hr(time) {
