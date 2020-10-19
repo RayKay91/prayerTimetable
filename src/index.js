@@ -1,36 +1,36 @@
 //Selectors
 //initial date capture
 //DOM Elements
-const dateH3 = document.querySelector('h3');
-const clock = document.querySelector('#clock');
+const dateH3 = document.querySelector("h3");
+const clock = document.querySelector("#clock");
 //selecting rows for class and appearance change
-const rowFajr = document.querySelector('tr:nth-of-type(2)');
-const rowSunrise = document.querySelector('tr:nth-of-type(3)');
-const rowDhuhr = document.querySelector('tr:nth-of-type(4)');
-const rowAsr = document.querySelector('tr:nth-of-type(5)');
-const rowMaghrib = document.querySelector('tr:nth-of-type(6)');
-const rowIsha = document.querySelector('tr:nth-of-type(7)');
+const rowFajr = document.querySelector("tr:nth-of-type(2)");
+const rowSunrise = document.querySelector("tr:nth-of-type(3)");
+const rowDhuhr = document.querySelector("tr:nth-of-type(4)");
+const rowAsr = document.querySelector("tr:nth-of-type(5)");
+const rowMaghrib = document.querySelector("tr:nth-of-type(6)");
+const rowIsha = document.querySelector("tr:nth-of-type(7)");
 //selecting times from first column of timetable
-const fajr = document.querySelector('.fajr');
-const sunrise = document.querySelector('.sunrise');
-const dhuhr = document.querySelector('.dhuhr');
-const asr = document.querySelector('.asr');
-const maghrib = document.querySelector('.maghrib');
-const isha = document.querySelector('.isha');
+const fajr = document.querySelector(".fajr");
+const sunrise = document.querySelector(".sunrise");
+const dhuhr = document.querySelector(".dhuhr");
+const asr = document.querySelector(".asr");
+const maghrib = document.querySelector(".maghrib");
+const isha = document.querySelector(".isha");
 //selecting times from second column of timetable
-const fJam = document.querySelector('.F-Jam');
-const dJam = document.querySelector('.D-Jam');
-const aJam = document.querySelector('.A-Jam');
-const mJam = document.querySelector('.M-Jam');
-const iJam = document.querySelector('.I-Jam');
+const fJam = document.querySelector(".F-Jam");
+const dJam = document.querySelector(".D-Jam");
+const aJam = document.querySelector(".A-Jam");
+const mJam = document.querySelector(".M-Jam");
+const iJam = document.querySelector(".I-Jam");
 //selecting button
 
 //buttons under table
-const nEnabled = document.querySelector('.nEnabled');
-const nSilenced = document.querySelector('.nSilenced');
-const nOff = document.querySelector('.nOff');
+const nEnabled = document.querySelector(".nEnabled");
+const nSilenced = document.querySelector(".nSilenced");
+const nOff = document.querySelector(".nOff");
 
-const getTimes = require('./scraperFunc');
+const getTimes = require("./scraperFunc");
 
 getTimes().then((times) => {
   const fajr = times[0][0];
@@ -85,7 +85,7 @@ getTimes().then((times) => {
           maghribJamaa,
           ishaJamaa
         )
-      : '';
+      : "";
 
     timeDifference(fTime, sTime, dTime, aTime, mTime, iTime);
     setTimeout(function () {
@@ -96,11 +96,9 @@ getTimes().then((times) => {
 });
 
 //Event listeners
-// btn.addEventListener('mousedown', tomorrowTimes);
-// btn.addEventListener('mouseup', todayTimes);
-nEnabled.addEventListener('mousedown', permitNotifications);
-nSilenced.addEventListener('mousedown', silenceNotifications);
-nOff.addEventListener('mousedown', stopNotifications);
+nEnabled.addEventListener("mousedown", permitNotifications);
+nSilenced.addEventListener("mousedown", silenceNotifications);
+nOff.addEventListener("mousedown", stopNotifications);
 
 //Functions
 const setPrayerTimes = (
@@ -137,47 +135,47 @@ function timeDifference(fTime, sTime, dTime, aTime, mTime, iTime) {
   h = checkZero(h);
   m = checkZero(m);
   sec = checkZero(sec);
-  const nCheckF = fTime + ':00';
-  const nCheckD = dTime + ':00';
-  const nCheckA = aTime + ':00';
-  const nCheckM = mTime + ':00';
-  const nCheckI = iTime + ':00';
+  const nCheckF = fTime + ":00";
+  const nCheckD = dTime + ":00";
+  const nCheckA = aTime + ":00";
+  const nCheckM = mTime + ":00";
+  const nCheckI = iTime + ":00";
 
-  const currentTime = parseInt(h + '' + m);
+  const currentTime = parseInt(h + "" + m);
 
-  const accurateCurrentTime = h + ':' + m + ':' + sec;
+  const accurateCurrentTime = h + ":" + m + ":" + sec;
 
-  const fajrTime = +fTime.replace(':', '');
-  const sunrisetime = +sTime.replace(':', '');
-  const dhuhrTime = +dTime.replace(':', '');
-  const asrTime = +aTime.replace(':', '');
-  const maghribTime = +mTime.replace(':', '');
-  const ishaTime = +iTime.replace(':', '');
+  const fajrTime = +fTime.replace(":", "");
+  const sunrisetime = +sTime.replace(":", "");
+  const dhuhrTime = +dTime.replace(":", "");
+  const asrTime = +aTime.replace(":", "");
+  const maghribTime = +mTime.replace(":", "");
+  const ishaTime = +iTime.replace(":", "");
 
   if (currentTime >= fajrTime && currentTime < sunrisetime) {
-    if (accurateCurrentTime === nCheckF) notify('Fajr');
-    rowFajr.classList.add('active');
+    if (accurateCurrentTime === nCheckF) notify("Fajr");
+    rowFajr.classList.add("active");
   } else if (currentTime >= sunrisetime && currentTime < dhuhrTime) {
     changeActiveClass(rowFajr, rowSunrise);
   } else if (currentTime >= dhuhrTime && currentTime < asrTime) {
-    if (accurateCurrentTime === nCheckD) notify('Dhuhr');
+    if (accurateCurrentTime === nCheckD) notify("Dhuhr");
     changeActiveClass(rowSunrise, rowDhuhr);
   } else if (currentTime >= asrTime && currentTime < maghribTime) {
-    if (accurateCurrentTime === nCheckA) notify('Asr');
+    if (accurateCurrentTime === nCheckA) notify("Asr");
     changeActiveClass(rowDhuhr, rowAsr);
   } else if (currentTime >= maghribTime && currentTime < ishaTime) {
-    if (accurateCurrentTime === nCheckM) notify('Maghrib');
+    if (accurateCurrentTime === nCheckM) notify("Maghrib");
     changeActiveClass(rowAsr, rowMaghrib);
   } else if (currentTime >= ishaTime && currentTime <= 2359) {
-    if (accurateCurrentTime === nCheckI) notify('Isha');
+    if (accurateCurrentTime === nCheckI) notify("Isha");
     changeActiveClass(rowMaghrib, rowIsha);
   } else if (!currentTime) {
-    rowIsha.classList.remove('active');
+    rowIsha.classList.remove("active");
   }
 }
 function changeActiveClass(rowRemove, rowAdd) {
-  rowRemove.classList.remove('active');
-  rowAdd.classList.add('active');
+  rowRemove.classList.remove("active");
+  rowAdd.classList.add("active");
 }
 //gets and sets clock
 function currentTime() {
@@ -188,8 +186,8 @@ function currentTime() {
   hour = checkZero(hour);
   mi = checkZero(mi);
   sec = checkZero(sec);
-  clock.innerText = hour + ':' + mi + ':' + sec; /* adding time to the div */
-  if (hour + ':' + mi + ':' + sec === '00:00:00') {
+  clock.innerText = hour + ":" + mi + ":" + sec; /* adding time to the div */
+  if (hour + ":" + mi + ":" + sec === "00:00:00") {
     setDate();
     return true;
   }
@@ -198,7 +196,7 @@ function currentTime() {
 //adds zero to minute/hour/sec below 10
 function checkZero(num) {
   if (num < 10) {
-    return '0' + num;
+    return "0" + num;
   } else {
     return num;
   }
@@ -208,12 +206,12 @@ function checkZero(num) {
 
 function convertTo24Hr(time) {
   //check if hour is 12 if so do not add 12
-  if (time[1] === '2') return time;
-  if (time[0] !== '0') {
-    time = '0' + time;
+  if (time[1] === "2") return time;
+  if (time[0] !== "0") {
+    time = "0" + time;
   }
   let hours = time.substring(0, 2);
-  console.log('functionconvertTo24Hr -> hours', time, hours);
+  console.log("functionconvertTo24Hr -> hours", time, hours);
 
   hours = parseInt(hours) + 12;
   return hours + time.substring(2);
@@ -225,55 +223,55 @@ function setDate() {
 }
 
 function notify(pName) {
-  if (Notification.permission === 'granted') {
+  if (Notification.permission === "granted") {
     if (
-      nEnabled.classList.contains('pressed') &&
-      !nSilenced.classList.contains('pressed')
+      nEnabled.classList.contains("pressed") &&
+      !nSilenced.classList.contains("pressed")
     ) {
       new Notification(`Time for ${pName} prayer`, {
         body: `The time for ${pName} prayer has started.`,
-        soundName: 'default',
+        soundName: "default",
       });
-    } else if (nSilenced.classList.contains('pressed')) {
+    } else if (nSilenced.classList.contains("pressed")) {
       new Notification(`Time for ${pName} prayer`, {
         body: `The time for ${pName} prayer has started.`,
         silent: true,
       });
-    } else if (nOff.classList.contains('pressed')) {
+    } else if (nOff.classList.contains("pressed")) {
     }
-  } else if (Notification.permission !== 'denied') {
+  } else if (Notification.permission !== "denied") {
     Notification.requestPermission();
   }
 }
 
 function permitNotifications() {
-  nEnabled.classList.toggle('pressed');
-  nOff.classList.remove('pressed');
-  if (!nEnabled.classList.contains('pressed')) {
-    nOff.classList.add('pressed');
-    nSilenced.classList.remove('pressed');
+  nEnabled.classList.toggle("pressed");
+  nOff.classList.remove("pressed");
+  if (!nEnabled.classList.contains("pressed")) {
+    nOff.classList.add("pressed");
+    nSilenced.classList.remove("pressed");
   }
 }
 function stopNotifications() {
-  nOff.classList.toggle('pressed');
-  nEnabled.classList.remove('pressed');
-  nSilenced.classList.remove('pressed');
-  if (!nOff.classList.contains('pressed')) {
-    nEnabled.classList.add('pressed');
+  nOff.classList.toggle("pressed");
+  nEnabled.classList.remove("pressed");
+  nSilenced.classList.remove("pressed");
+  if (!nOff.classList.contains("pressed")) {
+    nEnabled.classList.add("pressed");
   }
 }
 function silenceNotifications() {
-  nEnabled.classList.add('pressed');
-  nSilenced.classList.toggle('pressed');
-  nOff.classList.remove('pressed');
-  if (!nSilenced.classList.contains('pressed')) {
-    nEnabled.classList.add('pressed');
+  nEnabled.classList.add("pressed");
+  nSilenced.classList.toggle("pressed");
+  nOff.classList.remove("pressed");
+  if (!nSilenced.classList.contains("pressed")) {
+    nEnabled.classList.add("pressed");
   }
 }
 function notificationPermission() {
   if (
-    Notification.permission !== 'granted' &&
-    Notification.permission !== 'denied'
+    Notification.permission !== "granted" &&
+    Notification.permission !== "denied"
   ) {
     Notification.requestPermission();
   }
