@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require("electron");
 
 function createWindow() {
   // Create the browser window.
@@ -7,18 +7,18 @@ function createWindow() {
     height: 730,
     webPreferences: {
       nodeIntegration: true,
-      devTools: true,
+      devTools: false,
     },
     icon: `${__dirname}/src/assets/icons/Icon_256x256.png`,
-    resizable: true,
+    resizable: false,
     acceptFirstMouse: true,
-    titleBarStyle: 'hidden',
+    titleBarStyle: "hidden",
     movable: true,
     fullscreenable: false,
   });
 
   // and load the index.html of the app.
-  win.loadFile('./src/index.html');
+  win.loadFile("./src/index.html");
 }
 
 // This method will be called when Electron has finished
@@ -27,18 +27,18 @@ function createWindow() {
 app.whenReady().then(createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-process.platform === 'win32'
-  ? app.setAppUserModelId('WISE.PrayerTimesApp')
-  : '';
-app.on('activate', () => {
+process.platform === "win32"
+  ? app.setAppUserModelId("WISE.PrayerTimesApp")
+  : "";
+app.on("activate", () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
