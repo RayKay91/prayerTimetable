@@ -1,7 +1,7 @@
 # Cross platform app made with Electron JS
 Timetable app for a local mosque's prayer times.
 
-This is my first true problem solving app.
+This is my first proper app.
 
 **Edit:** this is deprecated, switch to the other branch. I will leave the master branch as it is to be able to compare both branches.
 
