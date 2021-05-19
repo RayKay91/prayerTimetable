@@ -211,8 +211,8 @@ function convertTo24Hr(time) {
   if (time.substring(0,2) === "12" || time.substring(0, 2) === "11") return time;
 
 
-  if (time[0] !== "0") {
-    time = "0" + time;
+  if (time.substring(0, 2) !== '10' && time[0] !== '0') {
+    time = '0' + time;
   }
   let hours = time.substring(0, 2);
 
